@@ -13,8 +13,17 @@
 //     }
 // ]
 
-week = ['월', '화', '수', '목', '금', '토', '일'];
+week = ['월', '화', '수', '목', '금', '토'];
 lec_times = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+colors = [
+    [255,128,128], 
+    [255,223,128],
+    [191,255,128],
+    [128,255,255],
+    [128,159,255],
+    [191,128,255],
+    [255,128,223],
+    [191,191,191]];
 
 
 
@@ -105,6 +114,7 @@ function add_lec(obj, val){
     btn22 = document.createElement('button');
     btn22.setAttribute('onclick', 'del_lec(this);');
     btn22.innerText = '강의삭제';
+    btn22.setAttribute('style','color:red');
     sel31 = document.createElement('select');
     sel32 = document.createElement('select');
     btn33 = document.createElement('button');
@@ -144,12 +154,16 @@ function add_lec(obj, val){
     tab.append(tr3.cloneNode(true));
     
     if(val == 1){
-        obj.parentNode.parentNode.childNodes[3].append(tab);
+        //obj.parentNode.parentNode.childNodes[3].append(tab);
+        div = document.querySelector('#fir_lecs');
+        div.append(tab);
 
         num_lec_p = document.querySelector('#num_lec_p');
         num_lec_p.innerText = document.querySelectorAll('#fir_lecs table').length;
     }else{
-        obj.parentNode.parentNode.childNodes[9].append(tab);
+        //obj.parentNode.parentNode.childNodes[9].append(tab);
+        div = document.querySelector('#sec_lecs');
+        div.append(tab);
     }
 }
 
@@ -510,6 +524,7 @@ function show_sche(n, sche){
     
     div = document.querySelector(q);
     tab = document.createElement('table');
+    tab.setAttribute('class', 'batch_sche');
 
     for(let i = 0; i < 2; i++){
         tr = document.createElement('tr');
@@ -559,8 +574,13 @@ function show_sche(n, sche){
     // 과목리스트와 각각과목시간표에 넣기
     for(let i = 0; i < sche.length; i ++){
         // 과목이름들들어가는곳
-        p = document.querySelector(q + ' table:nth-child('+(n+1)+') tr:nth-child(2) td:nth-child(1)'); 
+        sec_trtd = document.querySelector(q + ' table:nth-child('+(n+1)+') tr:nth-child(2) td:nth-child(1)'); 
+        p = document.createElement('p');
+        p.setAttribute('style','color: rgb('
+                         + colors[i][0] + ',' + colors[i][1] + ',' + colors[i][2]
+                         + '); display: inline-block;');
         p.innerHTML = p.innerText + sche[i].NAME + '&nbsp;&nbsp;';
+        sec_trtd.append(p);
 
         // 과목넣기
         for(time of sche[i].IDS){ // time에 무슨요일, 몇교시 포함됨
@@ -570,8 +590,10 @@ function show_sche(n, sche){
             //해당요일교시 지정하기
             one_td = document.querySelector(q + 
                 ' table:nth-child('+(n+1)+') tr:nth-child('+(cls+4)+') td:nth-child('+(day+2)+')'); 
-
-            one_td.innerText = sche[i].NAME;
+            one_td.setAttribute('style','background-color: rgb('
+                         + colors[i][0] + ',' + colors[i][1] + ',' + colors[i][2]
+                         + ');');
+            //one_td.innerText = sche[i].NAME;
         }
 
 

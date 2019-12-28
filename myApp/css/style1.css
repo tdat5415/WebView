@@ -34,3 +34,20 @@ table, td{
 .batch_table tr td:nth-child(1) select{
 	/* width: 45px; */
 }
+
+
+.batch_sche{
+	margin: 10px;
+	width: 250px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.batch_sche p{
+	height: 0px;
+}
+
+button{
+	background-color: white;
+    color: black;
+}
