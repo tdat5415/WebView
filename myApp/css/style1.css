@@ -16,20 +16,21 @@ table, td{
 }
 
 .batch_table tr:nth-child(2) td:nth-child(1) button{
-	width: 120px;
+	width: 82px;
 }
 
 .batch_table input {
 	border-radius: 0px;
 	height: 38px;
-	width: 180px;
+	width: 145px;
 }
 
 .batch_table select {
 	height: 38px;
-	width: 73px;
+	/* width: 30px; */
+
 }
 
 .batch_table tr td:nth-child(1) select{
-	width: 45px;
+	/* width: 45px; */
 }
