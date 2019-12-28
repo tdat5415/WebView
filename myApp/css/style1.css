@@ -1,3 +1,35 @@
-.batch_table {
-	display: inline-block
+.batch_table{
+	display: inline-block;
+	text-align: center;
+	border-collapse: separate;
+	border-spacing: 2px;
+}
+
+table, td{
+	border: 1px solid #bcbcbc;
+}
+
+.batch_table button {
+	font-size: 10px;
+	height: 38px;
+	margin: 0px;
+}
+
+.batch_table tr:nth-child(2) td:nth-child(1) button{
+	width: 120px;
+}
+
+.batch_table input {
+	border-radius: 0px;
+	height: 38px;
+	width: 180px;
+}
+
+.batch_table select {
+	height: 38px;
+	width: 73px;
+}
+
+.batch_table tr td:nth-child(1) select{
+	width: 45px;
 }

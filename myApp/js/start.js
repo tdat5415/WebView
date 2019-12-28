@@ -14,7 +14,7 @@
 // ]
 
 week = ['월', '화', '수', '목', '금', '토', '일'];
-lec_times = ['1교시', '2교시', '3교시', '4교시', '5교시', '6교시', '7교시', '8교시', '9교시', '10교시', ];
+lec_times = ['1교시', '2교시', '3교시', '4교시', '5교시', '6교시', '7교시', '8교시', '9교시'];
 
 
 
@@ -45,7 +45,7 @@ function add_time(obj){
     sel1 = document.createElement("select");
     sel2 = document.createElement("select");
     bnt1 = document.createElement("button");
-    bnt1.innerText = "X";
+    bnt1.innerHTML = "시간삭제";
     bnt1.setAttribute("onclick", "del_time(this);")
 
     for(i = 0; i < week.length; i++){
@@ -97,7 +97,8 @@ function add_lec(obj, val){
     td33 = document.createElement('td');
 
     inp11 = document.createElement('input');
-    inp11.value = '강의명';
+    inp11.setAttribute('placeholder', '강의명을 입력');
+    //inp11.value = '강의명';
     btn21 = document.createElement('button');
     btn21.setAttribute('onclick', 'add_time(this);');
     btn21.innerText = '시간추가';
@@ -108,7 +109,7 @@ function add_lec(obj, val){
     sel32 = document.createElement('select');
     btn33 = document.createElement('button');
     btn33.setAttribute('onclick', 'del_time(this);');
-    btn33.innerText = 'X';
+    btn33.innerHTML = '시간삭제';
 
     for(i = 0; i < week.length; i++){
         opt = document.createElement('option');
@@ -139,6 +140,8 @@ function add_lec(obj, val){
     tab.append(tr1);
     tab.append(tr2);
     tab.append(tr3);
+    tab.append(tr3.cloneNode(true));
+    tab.append(tr3.cloneNode(true));
     
     if(val == 1){
         obj.parentNode.parentNode.childNodes[3].append(tab);
@@ -184,7 +187,24 @@ function sol_puz(obj){
     
     sches = puzzling(data1, data2);
 
+    // 원래 있던 시간표들 제거
+    q = '#sol_result';
+    ch_list =document.querySelector(q).childNodes;
+    list_len = ch_list.length; 
+    for(let i = 0; i < list_len; i++){
+        ch_list[0].remove();
+    }
+
     show_sches(sches);
+
+    if(sches.length == 0){
+        p = document.createElement('p');
+        p.setAttribute('id', 'no_sches');
+
+        p.innerText = '가능한시간표가 없어요ㅠ';
+
+        document.querySelector(q).append(p);
+    }
 }
 
 function push_lec(data, val){
@@ -327,8 +347,8 @@ function puzzling(data1, data2){
                 // console.log('one_lec');
                 // console.log(one_lec_cp);
 
-                if(ck_lec_in_sche(one_lec_cp, new_one_sche) == true) continue; // 스케줄에 같은 시간이 존재
-                new_one_sche.push(one_lec_cp); // 스케줄에 시간 추가
+                if(ck_ov_lec_in_sche(one_lec_cp, new_one_sche) == true) continue; // 스케줄에 같은 시간이 존재
+                new_one_sche.push(one_lec_cp); // 스케줄에 강의 추가
 
                 // console.log('one_sche 후');
                 // console.log(new_one_sche);
@@ -404,14 +424,14 @@ function fil_lecs(i, data){
     return new_data;
 }
 
-function ck_lec_in_sche(lec, sche){
+function ck_ov_lec_in_sche(lec, sche){
     // console.log('lec');
     // console.log(lec);
     // console.log('sche');
     // console.log(sche);
 
     for(one_lec of sche){
-        if(compare_lec(lec, one_lec) == true) return true; //같은 시간이 존재한다
+        if(ck_overlap_time(lec, one_lec)) return true; //겹치는 시간이 존재한다
         if(lec.NAME === one_lec.NAME) return true; // 같은 강의명이 존재한다.
     }
 
@@ -478,15 +498,17 @@ function compare_sche(sche1, sche2){ //   [lec1, lec2..]  vs  [lec1, lec2..]
 }
 
 function show_sches(sches){
+    //스케줄하나식 출력
     for(let i = 0; i < sches.length; i++){
         show_sche(i, sches[i]);
     }
 }
 
 function show_sche(n, sche){
+    //빈 테이블 만들기
     q = '#sol_result';
+    
     div = document.querySelector(q);
-
     tab = document.createElement('table');
 
     for(let i = 0; i < 2; i++){
@@ -508,6 +530,7 @@ function show_sche(n, sche){
 
     div.append(tab); // 빈 테이블 넣기
 
+    //경계선 넣기
     hr = document.createElement('hr');
     div.append(hr);
     n = n*2;
@@ -515,26 +538,29 @@ function show_sche(n, sche){
     // console.log('return');
     // return;
 
+    // 넘버링넣기
     p = document.querySelector(q + ' table:nth-child('+(n+1)+') tr:nth-child(1) td:nth-child(1)');
     p.innerText = 'No. ' + (n/2+1);
-
-    for(let i = 0; i < week.length; i++){ // 월화수목금토일넣기
+    
+    // 월화수목금토일넣기
+    for(let i = 0; i < week.length; i++){ 
         one_td = document.querySelector(q + 
             ' table:nth-child('+(n+1)+') tr:nth-child(3) td:nth-child(' + (i+2) + ')');
         one_td.innerText = week[i];
     }
-
-    for(let i = 0; i < lec_times.length; i++){ // 1교시~10교시넣기
+    
+    // 1교시~10교시넣기
+    for(let i = 0; i < lec_times.length; i++){ 
         one_td = document.querySelector(q + 
             ' table:nth-child('+(n+1)+') tr:nth-child(' + (i+4) + ') td:nth-child(1)');
         one_td.innerText = lec_times[i];
     }
 
-
+    // 과목리스트와 각각과목시간표에 넣기
     for(let i = 0; i < sche.length; i ++){
         // 과목이름들들어가는곳
         p = document.querySelector(q + ' table:nth-child('+(n+1)+') tr:nth-child(2) td:nth-child(1)'); 
-        p.innerText = p.innerText + sche[i].NAME + '  ';
+        p.innerHTML = p.innerText + sche[i].NAME + '&nbsp;&nbsp;';
 
         // 과목넣기
         for(time of sche[i].IDS){ // time에 무슨요일, 몇교시 포함됨
