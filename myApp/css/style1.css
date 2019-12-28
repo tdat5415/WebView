@@ -47,7 +47,7 @@ table, td{
 	height: 0px;
 }
 
-button{
+button, select{
 	background-color: white;
     color: black;
 }
