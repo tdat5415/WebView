@@ -7,7 +7,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>myApp</title>
+	<title>스케줄퍼즐</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Website Template by FreeHTML5.co" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
@@ -77,8 +77,7 @@
 					<li class="fh5co-active"><a href="index.html">Home</a></li>
                     <li><a href="tuto.html">튜토리얼</a></li>
 					<li><a href="start.html">시작하기</a></li>
-                    <li><a href="index.html">어플목적</a></li>
-                    <li><a href="index.html">어플설명</a></li>
+                    <li><a href="about.html">어플설명</a></li>
                     
 				</ul>
 			</nav>
@@ -86,9 +85,13 @@
 
 		<div id="fh5co-main">
 			<div class="fh5co-narrow-content">
-				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">이름들어가는곳</h2>
+				<h2 class="animate-box big_title" data-animate-effect="fadeInLeft" style='margin-bottom: 5px; color: rgb(128,159,255);'>시간표는 내가 맞춰줄게!</h2>
+				<h2 class="animate-box big_title" data-animate-effect="fadeInLeft" style='margin-bottom: 40px; color: rgb(128,159,255);'>입력만 해줘!</h2>
 				<div>
-					<h3 style='height: 15px;'>필수로 들을 강의들<button id="fir_lec_btn" onclick="add_lec(this, 1);">+</button></h3>
+					<h3 class="animate-box" data-animate-effect="fadeInLeft" style='height: 15px;'>
+						필수로 들을 강의들
+						<button id="fir_lec_btn" onclick="add_lec(this, 1);">+</button>
+					</h3>
 					<div id='fir_lecs'>
 						<!-- <table class="batch_table">
 							<tr>
@@ -120,7 +123,10 @@
 						</table> -->
 					</div>
 					<hr>
-					<h3 style='height: 15px;'>선택으로 듣고싶은 강의들<button id="sec_lec_btn" onclick="add_lec(this, 2);">+</button></h3>
+					<h3 class="animate-box" data-animate-effect="fadeInLeft" style='height: 15px;'>
+						선택으로 듣고싶은 강의들
+						<button id="sec_lec_btn" onclick="add_lec(this, 2);">+</button>
+					</h3>
 					<div id='sec_lecs'>
 						<!-- <table class="batch_table">
 							<tr>
@@ -153,27 +159,53 @@
 						
 					</div>
 					<hr>
-					<h3 style='height: 15px;'>들을 강의 갯수<button id="num_lec_+_btn" onclick='add_num(this);'>+</button><button id="num_lec_-_btn" onclick='sub_num(this);'>-</button></h3>
-					<p id="num_lec_p" style='font-size:40px; height:0px;'>0</p>
+					<h3 class="animate-box" data-animate-effect="fadeInLeft" style='height: 15px;'>
+						들을 강의 갯수
+						<button id="num_lec_+_btn" onclick='add_num(this);'>+</button>
+						<button id="num_lec_-_btn" onclick='sub_num(this);'>-</button>
+					</h3>
+					<p class="animate-box" data-animate-effect="fadeInLeft" id="num_lec_p" style='font-size:40px; height:0px;'>
+						0
+					</p>
 					<hr>
-					<h3 style='height: 15px;'>공강할 요일 선택</h3>
+					<h3 class="animate-box" data-animate-effect="fadeInLeft" style='height: 15px;'>
+						공강할 요일 선택
+					</h3>
 					<!-- <button onclick='test(this);'>test</button> -->
-					<input class='ck_box' id="hol_0_inp" type="checkbox">월 &nbsp;
-					<input class='ck_box' id="hol_1_inp" type="checkbox">화 &nbsp;
-					<input class='ck_box' id="hol_2_inp" type="checkbox">수 &nbsp;
-					<input class='ck_box' id="hol_3_inp" type="checkbox">목 &nbsp;
-					<input class='ck_box' id="hol_4_inp" type="checkbox">금 &nbsp;
-					<input class='ck_box' id="hol_5_inp" type="checkbox">토 &nbsp;
-					<!-- <input class='ck_box' id="hol_6_inp" type="checkbox">일 &nbsp; -->
+					<div class="animate-box" data-animate-effect="fadeInLeft">
+						<input class='ck_box' id="hol_0_inp" type="checkbox">월 &nbsp;
+						<input class='ck_box' id="hol_1_inp" type="checkbox">화 &nbsp;
+						<input class='ck_box' id="hol_2_inp" type="checkbox">수 &nbsp;
+						<input class='ck_box' id="hol_3_inp" type="checkbox">목 &nbsp;
+						<input class='ck_box' id="hol_4_inp" type="checkbox">금 &nbsp;
+						<input class='ck_box' id="hol_5_inp" type="checkbox">토 &nbsp;
+						<!-- <input class='ck_box' id="hol_6_inp" type="checkbox">일 &nbsp; -->
+					</div>
 					<hr>
-					<button id="sol_btn" type='submit' onclick='sol_puz(this);'>가능한 시간표들 보기</button>
+					<button class="animate-box" data-animate-effect="fadeInLeft" id="sol_btn" type='submit' onclick='sol_puz(this);'>
+						가능한 시간표들 보기
+					</button>
 					<div id='sol_result'></div>
-					<p><br><br><br><br></p>
-					<!-- <h3 style="color: rgb(5,9,255); font-size: 10px;">asdf</h3> -->
+					<p>
+						<br><br><br><br>
+					</p>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<style>
+		@import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+			
+		.big_title{
+			font-family: 'Nanum Pen Script', cursive;
+			font-size: 45px;
+		}
+
+		.batch_table tr:nth-child(1) td:nth-child(1) input::placeholder{
+			opacity: 0.2;
+		}
+	</style>
 
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>

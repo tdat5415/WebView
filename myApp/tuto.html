@@ -7,7 +7,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>myApp</title>
+	<title>스케줄퍼즐</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Website Template by FreeHTML5.co" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
@@ -55,6 +55,7 @@
 	<link rel="stylesheet" href="css/owl.theme.default.min.css">
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/style1.css">
 
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
@@ -83,19 +84,28 @@
 
 		<div id="fh5co-main">
 			<div class="fh5co-narrow-content">
-				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">튜토리얼</h2>
+				<h2 class="fh5co-heading animate-box big_title" data-animate-effect="fadeInLeft">튜토리얼</h2>
 				<div>
-					<img src="images/logo.png">
-					<img src="images/logo.png">
-					<img src="images/logo.png">
-					<img src="images/logo.png">
-					<img src="images/logo.png">
-					<img src="images/logo.png">
-					<img src="images/logo.png">
+					<div style='margin-bottom: 20px;'>
+						<button onclick='pre_image();'>Prev</button>
+						<button style='float: right;' onclick='next_image();'>Next</button>
+					</div>
+					<div style='text-align: center;'>
+						<img id='img_tag' src="images/logo.png">
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<style>
+		@import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+			
+		.big_title{
+			font-family: 'Nanum Pen Script', cursive;
+			font-size: 90px;
+		}
+	</style>
 
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
@@ -115,6 +125,28 @@
 	
 	<!-- MAIN JS -->
 	<script src="js/main.js"></script>
+
+	<script>
+		var images = [];
+		images.push('images/logo.png');
+		images.push('images/loc.png');
+		images.push('images/hero.jpg');
+
+		let cur = 0;
+		img = document.querySelector('#img_tag');
+
+		function pre_image(){
+			cur = cur + images.length - 1; 
+			cur %= images.length;
+			img.src = images[cur];
+		}
+
+		function next_image(){
+			cur = cur + images.length + 1; 
+			cur %= images.length;
+			img.src = images[cur];
+		}
+	</script>
 
 
 

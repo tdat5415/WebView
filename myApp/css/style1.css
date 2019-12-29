@@ -55,3 +55,11 @@ button, select{
 	background-color: white;
     color: black;
 }
+
+
+
+.big_title{
+	margin-left: 20px;
+	margin-bottom: 20px;
+	margin-right:0px;
+}
