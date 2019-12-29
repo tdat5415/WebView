@@ -59,23 +59,21 @@
 
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
-	<!-- FOR IE9 below -->
-	<!--[if lt IE 9]>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
+	
 
+	<link rel='icon' href='images/puzzle_logo.png'>
 	</head>
 	<body>
 	<div id="fh5co-page">
 		<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
 		<aside id="fh5co-aside" role="complementary" class="border js-fullheight">
 
-			<h1 id="fh5co-logo"><a href="index.html"><img src="images/logo.png" alt="Free HTML5 Bootstrap Website Template"></a></h1>
+			<h1 id="fh5co-logo"><a href="index.html"><img src="images/puzzle_logo.png" alt="Free HTML5 Bootstrap Website Template" style='height: 150px;'></a></h1>
 			<nav id="fh5co-main-menu" role="navigation">
 				<ul>
 					<li class="fh5co-active"><a href="index.html">Home</a></li>
-                    <li><a href="tuto.html">튜토리얼</a></li>
 					<li><a href="start.html">시작하기</a></li>
+                    <li><a href="tuto.html">튜토리얼</a></li>
                     <li><a href="about.html">어플설명</a></li>
                     
 				</ul>
@@ -86,35 +84,30 @@
 
 			<div class="fh5co-narrow-content">
 				<h2 class="fh5co-heading animate-box big_title" data-animate-effect="fadeInLeft">
-					스케줄퍼즐!
+					<p class='one_title' style='color: rgb(255,128,128);'>스</p>
+					<p class='one_title' style='color: rgb(255,223,128);'>케</p>
+					<p class='one_title' style='color: rgb(191,255,128);'>줄</p>
+					<p class='one_title' style='color: rgb(128,255,255);'>퍼</p>
+					<p class='one_title' style='color: rgb(128,159,255);'>즐</p>
+					<p class='one_title' style='color: rgb(191,128,255);'>!</p>
 				</h2>
 				<div class="row animate-box" data-animate-effect="fadeInLeft">
-					<div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 work-item">
-                        <a href="tuto.html">
-                            <img src="images/work_1.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-                            <h3 class="fh5co-work-title">튜토리얼</h3>
-                        </a>
-					</div>
-					<div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 work-item">
-						<a href="start.html">
-							<img src="images/work_2.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
+					<div id='big-div' class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 work-item">
+						<a class='pngs animate-box' href="start.html">
+							<img src="images/시작.png" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
 							<h3 class="fh5co-work-title">시작하기</h3>
 						</a>
-					</div>
-					<div class="clearfix visible-sm-block"></div>
-					<div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 work-item">
-						<a href="index.html">
-							<img src="images/work_3.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-							<h3 class="fh5co-work-title">어플목적</h3>
+						<br>
+						<a class='pngs animate-box' href="tuto.html">
+							<img src="images/튜토.png" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
+							<h3 class="fh5co-work-title">튜토리얼</h3>
 						</a>
-					</div>
-					<div class="clearfix visible-md-block"></div>
-					<div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 work-item">
-						<a href="index.html">
-							<img src="images/work_4.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
+						<a class='pngs animate-box' href="about.html">
+							<img src="images/설명.png" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
 							<h3 class="fh5co-work-title">어플설명</h3>
 						</a>
 					</div>
+					<div class="clearfix visible-md-block"></div>
 					<div class="clearfix visible-sm-block"></div>
 					
 				</div>
@@ -129,7 +122,18 @@
 			
 		.big_title{
 			font-family: 'Nanum Pen Script', cursive;
-			font-size: 70px;
+			font-size: 60px;
+		}
+		.pngs{
+			display: inline-block;
+			
+		}
+		.one_title{
+			display: inline-block;
+			margin: 0px;
+		}
+		#big-div{
+			text-align: center;
 		}
 	</style>
 
