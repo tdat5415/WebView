@@ -13,8 +13,17 @@
 //     }
 // ]
 
-week = ['월', '화', '수', '목', '금', '토', '일'];
-lec_times = ['1교시', '2교시', '3교시', '4교시', '5교시', '6교시', '7교시', '8교시', '9교시', '10교시', ];
+week = ['월', '화', '수', '목', '금', '토'];
+lec_times = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+colors = [
+    [255,128,128], 
+    [255,223,128],
+    [191,255,128],
+    [128,255,255],
+    [128,159,255],
+    [191,128,255],
+    [255,128,223],
+    [191,191,191]];
 
 
 
@@ -45,7 +54,7 @@ function add_time(obj){
     sel1 = document.createElement("select");
     sel2 = document.createElement("select");
     bnt1 = document.createElement("button");
-    bnt1.innerText = "X";
+    bnt1.innerHTML = "시간삭제";
     bnt1.setAttribute("onclick", "del_time(this);")
 
     for(i = 0; i < week.length; i++){
@@ -97,18 +106,20 @@ function add_lec(obj, val){
     td33 = document.createElement('td');
 
     inp11 = document.createElement('input');
-    inp11.value = '강의명';
+    inp11.setAttribute('placeholder', '강의명을 입력');
+    //inp11.value = '강의명';
     btn21 = document.createElement('button');
     btn21.setAttribute('onclick', 'add_time(this);');
     btn21.innerText = '시간추가';
     btn22 = document.createElement('button');
     btn22.setAttribute('onclick', 'del_lec(this);');
     btn22.innerText = '강의삭제';
+    btn22.setAttribute('style','color:red');
     sel31 = document.createElement('select');
     sel32 = document.createElement('select');
     btn33 = document.createElement('button');
     btn33.setAttribute('onclick', 'del_time(this);');
-    btn33.innerText = 'X';
+    btn33.innerHTML = '시간삭제';
 
     for(i = 0; i < week.length; i++){
         opt = document.createElement('option');
@@ -139,14 +150,20 @@ function add_lec(obj, val){
     tab.append(tr1);
     tab.append(tr2);
     tab.append(tr3);
+    tab.append(tr3.cloneNode(true));
+    tab.append(tr3.cloneNode(true));
     
     if(val == 1){
-        obj.parentNode.parentNode.childNodes[3].append(tab);
+        //obj.parentNode.parentNode.childNodes[3].append(tab);
+        div = document.querySelector('#fir_lecs');
+        div.append(tab);
 
         num_lec_p = document.querySelector('#num_lec_p');
         num_lec_p.innerText = document.querySelectorAll('#fir_lecs table').length;
     }else{
-        obj.parentNode.parentNode.childNodes[9].append(tab);
+        //obj.parentNode.parentNode.childNodes[9].append(tab);
+        div = document.querySelector('#sec_lecs');
+        div.append(tab);
     }
 }
 
@@ -178,13 +195,15 @@ function sol_puz(obj){
     //data2에 2순위들을 넣는다.
     push_lec(data2, 2);
 
-    // console.log(data1);
-    // console.log(data2);
-    //console.log(data1[0].IDS);
-    
-    sches = puzzling(data1, data2);
+    // 강의들의 시간들 정렬 - 혹시몰라서
+    for(let i = 0; i < data1.length; i++){
+        data1[i].IDS.sort();
+    }
+    for(let i = 0; i < data2.length; i++){
+        data2[i].IDS.sort();
+    }
 
-    // 원래 있던 시간표들 제거
+    // 원래 있던 스케줄(노드)들 제거
     q = '#sol_result';
     ch_list =document.querySelector(q).childNodes;
     list_len = ch_list.length; 
@@ -192,16 +211,17 @@ function sol_puz(obj){
         ch_list[0].remove();
     }
 
+    // 에러체크
+    if(ck_toterr(data1, data2) == true) return;
+
+    // 스케줄들 생성
+    sches = puzzling(data1, data2);
+
+    // 스케줄들 출력
     show_sches(sches);
 
-    if(sches.length == 0){
-        p = document.createElement('p');
-        p.setAttribute('id', 'no_sches');
-
-        p.innerText = '가능한시간표가 없어요ㅠ';
-
-        document.querySelector(q).append(p);
-    }
+    // 스케줄들이 없으면 출력
+    if(sches.length == 0) show_err('가능한시간표가 없어요ㅠ');
 }
 
 function push_lec(data, val){
@@ -223,6 +243,73 @@ function push_lec(data, val){
         read_table(q + ' table:nth-child('+i+')', contact);
         data.push(contact);
     }
+}
+
+function ck_toterr(data1, data2){
+    // 들을 강의가 하나라도 있는지 체크
+    if(data1.length == 0 && data2.length == 0){
+        show_err('강의를 넣어주세요..');
+        return true;
+    }
+
+    // 강의 갯수가 0개 인지 체크
+    if(document.querySelector('#num_lec_p').innerText == '0'){
+        show_err('들을 강의 갯수를 늘려주세요..');
+        return true;
+    }
+
+    // 강의들중 잘못된 시간표 체크
+    for(lec of data1){
+        if(ck_errlec(lec) == 1){
+            show_err('필수로 들을 강의들 중 이름이 없는 강의 존재');
+            return true;
+        }
+        else if(ck_errlec(lec) == 2){
+            show_err('필수로 들을 강의들 중 시간이 겹치는 강의 존재');
+            return true;
+        }
+    }
+    for(lec of data2){
+        if(ck_errlec(lec) == 1){
+            show_err('선택으로 듣고싶은 강의들 중 이름이 없는 강의 존재');
+            return true;
+        }
+        else if(ck_errlec(lec) == 2){
+            show_err('선택으로 듣고싶은 강의들 중 시간이 겹치는 강의 존재');
+            return true;
+        }
+    }
+
+    // 필수강의들중 겹치는것 체크
+    if(ck_overlap(data1)){
+        show_err('필수강의들중 겹치는것 존재');
+        return true;
+    }
+
+    return false;
+}
+
+function ck_errlec(lec){
+    // 이름이 있는지 체크
+    if(lec.NAME == '') return 1;
+
+    // 강의의 시간이 겹치는지 체크 - ex) 1교시,1교시,3교시
+    for(let i = 0; i < lec.IDS.length-1; i++){
+        for(let j = i+1; j < lec.IDS.length; j++){
+            if(lec.IDS[i] === lec.IDS[j]) return 2;
+        }
+    }
+
+    return 0;
+}
+
+function show_err(str){
+    q = '#sol_result';
+    p = document.createElement('p');
+    p.setAttribute('id', 'no_sches');
+    p.setAttribute('style', 'color: red;');
+    p.innerText = str;
+    document.querySelector(q).append(p);
 }
 
 function read_table(q, contact){
@@ -266,68 +353,17 @@ function read_table(q, contact){
 }
 
 function puzzling(data1, data2){
-    //init : 강의들의 시간들 정렬
-    for(let i = 0; i < data1.length; i++){
-        data1[i].IDS.sort();
-    }
-    for(let i = 0; i < data2.length; i++){
-        data2[i].IDS.sort();
-    }
-
-
-    err_flag = 0;
-
-    //step0 : 강의들중 잘못된 시간표 체크
-    for(lec of data1){
-        if(ck_errlec(lec)){
-            console.log('필수강의들중 잘못된시간표 존재');
-            err_flag = 1;
-        }
-    }
-    for(lec of data2){
-        if(ck_errlec(lec)){
-            console.log('2순위강의들중 잘못된시간표 존재');
-            err_flag = 1;
-        }
-    }
-
-    
-    //step1 : 필수강의들중 겹치는것 체크
-    if(ck_overlap(data1)){
-        console.log('필수강의들중 겹치는것 존재');
-
-        err_flag = 1;
-    }
-
-    if(err_flag){
-        console.log('return');
-        return new_sches;
-    }
-    
-    // console.log('return');
-    // return;
-
-    //step2 : 공강요일이 포함된 강의 제거
+    //step1 : 공강요일이 포함된 강의 제거
     data1 = del_hol(data1); // 공강요일있는거 제거
     data2 = del_hol(data2); // 공강요일있는거 제거
 
-    // console.log(data1);
-    // console.log(data2);
-
-    // console.log('return');
-    // return;
-
-
-    //step3 : 초기집합
+    //step2 : 초기집합
     old_sches = []; // 강의들의 집합들의 집합
     new_sches = []; // 강의들의 집합들의 집합
 
     old_sches.push(JSON.parse(JSON.stringify(data1)));
 
-    console.log(old_sches);
-
-
-    //step4 : 초기집합에 2순위들 넣어봄
+    //step3 : 초기집합에 2순위들 넣어봄
     num_lec_p = document.querySelector('#num_lec_p');
     let num_lec = parseInt(num_lec_p.innerText);
     for(let i = data1.length; i < num_lec; i++){
@@ -338,20 +374,8 @@ function puzzling(data1, data2){
             for(one_sche of old_sches){
                 new_one_sche = JSON.parse(JSON.stringify(one_sche));
 
-                // console.log('one_sche 전');
-                // console.log(new_one_sche);
-                
-                // console.log('one_lec');
-                // console.log(one_lec_cp);
-
                 if(ck_ov_lec_in_sche(one_lec_cp, new_one_sche) == true) continue; // 스케줄에 같은 시간이 존재
                 new_one_sche.push(one_lec_cp); // 스케줄에 강의 추가
-
-                // console.log('one_sche 후');
-                // console.log(new_one_sche);
-
-                // console.log('return');
-                // return
 
                 if(ck_sche_in_sches(new_one_sche, new_sches) == true) continue; //스케줄들에 같은 스케줄이 존재
                 new_sches.push(new_one_sche);
@@ -359,20 +383,9 @@ function puzzling(data1, data2){
         }
 
         old_sches = new_sches;
-        //console.log(old_sches);
     }
-    console.log(old_sches);
+
     return old_sches;
-}
-
-function ck_errlec(lec){
-    for(let i = 0; i < lec.IDS.length-1; i++){
-        for(let j = i+1; j < lec.IDS.length; j++){
-            if(lec.IDS[i] === lec.IDS[j]) return true;
-        }
-    }
-
-    return false;
 }
 
 function ck_overlap(data){
@@ -507,6 +520,7 @@ function show_sche(n, sche){
     
     div = document.querySelector(q);
     tab = document.createElement('table');
+    tab.setAttribute('class', 'batch_sche');
 
     for(let i = 0; i < 2; i++){
         tr = document.createElement('tr');
@@ -556,8 +570,13 @@ function show_sche(n, sche){
     // 과목리스트와 각각과목시간표에 넣기
     for(let i = 0; i < sche.length; i ++){
         // 과목이름들들어가는곳
-        p = document.querySelector(q + ' table:nth-child('+(n+1)+') tr:nth-child(2) td:nth-child(1)'); 
+        sec_trtd = document.querySelector(q + ' table:nth-child('+(n+1)+') tr:nth-child(2) td:nth-child(1)'); 
+        p = document.createElement('p');
+        p.setAttribute('style','color: rgb('
+                         + colors[i][0] + ',' + colors[i][1] + ',' + colors[i][2]
+                         + '); display: inline-block;');
         p.innerHTML = p.innerText + sche[i].NAME + '&nbsp;&nbsp;';
+        sec_trtd.append(p);
 
         // 과목넣기
         for(time of sche[i].IDS){ // time에 무슨요일, 몇교시 포함됨
@@ -567,8 +586,10 @@ function show_sche(n, sche){
             //해당요일교시 지정하기
             one_td = document.querySelector(q + 
                 ' table:nth-child('+(n+1)+') tr:nth-child('+(cls+4)+') td:nth-child('+(day+2)+')'); 
-
-            one_td.innerText = sche[i].NAME;
+            one_td.setAttribute('style','background-color: rgb('
+                         + colors[i][0] + ',' + colors[i][1] + ',' + colors[i][2]
+                         + ');');
+            //one_td.innerText = sche[i].NAME;
         }
 
 

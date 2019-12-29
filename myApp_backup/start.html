@@ -88,7 +88,7 @@
 			<div class="fh5co-narrow-content">
 				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">이름들어가는곳</h2>
 				<div>
-					<h3>필수로 들을 강의들<button id="fir_lec_btn" onclick="add_lec(this, 1);">+</button></h3>
+					<h3 style='height: 15px;'>필수로 들을 강의들<button id="fir_lec_btn" onclick="add_lec(this, 1);">+</button></h3>
 					<div id='fir_lecs'>
 						<!-- <table class="batch_table">
 							<tr>
@@ -120,7 +120,7 @@
 						</table> -->
 					</div>
 					<hr>
-					<h3>선택으로 듣고싶은 강의들<button id="sec_lec_btn" onclick="add_lec(this, 2);">+</button></h3>
+					<h3 style='height: 15px;'>선택으로 듣고싶은 강의들<button id="sec_lec_btn" onclick="add_lec(this, 2);">+</button></h3>
 					<div id='sec_lecs'>
 						<!-- <table class="batch_table">
 							<tr>
@@ -153,22 +153,23 @@
 						
 					</div>
 					<hr>
-					<h3>들을 강의 갯수<button id="num_lec_+_btn" onclick='add_num(this);'>+</button><button id="num_lec_-_btn" onclick='sub_num(this);'>-</button></h3>
-					<p id="num_lec_p">0</p>
+					<h3 style='height: 15px;'>들을 강의 갯수<button id="num_lec_+_btn" onclick='add_num(this);'>+</button><button id="num_lec_-_btn" onclick='sub_num(this);'>-</button></h3>
+					<p id="num_lec_p" style='font-size:40px; height:0px;'>0</p>
 					<hr>
-					<h3>공강할 요일 선택</h3>
-					<button onclick='test(this);'>test</button>
-					<input id="hol_0_inp" type="checkbox">월 &nbsp;
-					<input id="hol_1_inp" type="checkbox">화 &nbsp;
-					<input id="hol_2_inp" type="checkbox">수 &nbsp;
-					<input id="hol_3_inp" type="checkbox">목 &nbsp;
-					<input id="hol_4_inp" type="checkbox">금 &nbsp;
-					<input id="hol_5_inp" type="checkbox">토 &nbsp;
-					<input id="hol_6_inp" type="checkbox">일 &nbsp;
+					<h3 style='height: 15px;'>공강할 요일 선택</h3>
+					<!-- <button onclick='test(this);'>test</button> -->
+					<input class='ck_box' id="hol_0_inp" type="checkbox">월 &nbsp;
+					<input class='ck_box' id="hol_1_inp" type="checkbox">화 &nbsp;
+					<input class='ck_box' id="hol_2_inp" type="checkbox">수 &nbsp;
+					<input class='ck_box' id="hol_3_inp" type="checkbox">목 &nbsp;
+					<input class='ck_box' id="hol_4_inp" type="checkbox">금 &nbsp;
+					<input class='ck_box' id="hol_5_inp" type="checkbox">토 &nbsp;
+					<!-- <input class='ck_box' id="hol_6_inp" type="checkbox">일 &nbsp; -->
 					<hr>
-					<button id="sol_btn" onclick='sol_puz(this);'>가능한 시간표들 보기</button>
+					<button id="sol_btn" type='submit' onclick='sol_puz(this);'>가능한 시간표들 보기</button>
 					<div id='sol_result'></div>
 					<p><br><br><br><br></p>
+					<!-- <h3 style="color: rgb(5,9,255); font-size: 10px;">asdf</h3> -->
 				</div>
 			</div>
 		</div>

@@ -35,9 +35,8 @@ table, td{
 
 .batch_sche{
 	margin: 10px;
-	width: 250px;
 	width: 95%;
-	height: 500px;
+	height: 450px;
 	text-align: center;
 	font-weight: bold;
 }
