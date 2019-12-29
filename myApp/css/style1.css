@@ -3,6 +3,7 @@
 	text-align: center;
 	border-collapse: separate;
 	border-spacing: 2px;
+	width: 18%;
 }
 
 table, td{
@@ -13,22 +14,22 @@ table, td{
 	font-size: 10px;
 	height: 38px;
 	margin: 0px;
+	width: 100%;
 }
-
+/* 
 .batch_table tr:nth-child(2) td:nth-child(1) button{
 	width: 82px;
-}
+} */
 
 .batch_table input {
 	border-radius: 0px;
 	height: 38px;
-	width: 145px;
+	width: 100%;
 }
 
 .batch_table select {
 	height: 38px;
-	/* width: 30px; */
-
+	width: 100%;
 }
 
 .batch_table tr td:nth-child(1) select{
