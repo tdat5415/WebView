@@ -516,7 +516,7 @@ function show_sche(n, sche){
 
     tab = document.createElement('table');
     tab.setAttribute('class', 'batch_sche');
-    tab.setAttribute('style', 'margin: 20px; margin-bottom: 50px;');
+    tab.setAttribute('style', 'margin-bottom: 50px;');
 
     // 테이블 위에서 두줄 만들기
     for(let i = 0; i < 2; i++){
