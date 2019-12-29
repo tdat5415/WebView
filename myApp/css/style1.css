@@ -41,6 +41,12 @@ table, td{
 	font-weight: bold;
 }
 
+.batch_sche td{
+	width: 5px;
+	background-color: rgb(250,250,250);
+	border: 1px solid black;
+}
+
 .batch_sche p{
 	height: 0px;
 }

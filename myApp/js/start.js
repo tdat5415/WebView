@@ -1,17 +1,4 @@
 
-// data1=[
-//     {
-//         "NAME" : "example1",
-//         "TIME" : [0,1,2]
-//     }
-// ]
-
-// data2=[
-//     {
-//         "NAME" : "example2",
-//         "TIME" : [7,8,9]
-//     }
-// ]
 
 week = ['월', '화', '수', '목', '금', '토'];
 lec_times = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
@@ -261,28 +248,28 @@ function ck_toterr(data1, data2){
     // 강의들중 잘못된 시간표 체크
     for(lec of data1){
         if(ck_errlec(lec) == 1){
-            show_err('필수로 들을 강의들 중 이름이 없는 강의 존재');
+            show_err('필수로 들을 강의들 중 <br>이름이 없는 강의 존재');
             return true;
         }
         else if(ck_errlec(lec) == 2){
-            show_err('필수로 들을 강의들 중 시간이 겹치는 강의 존재');
+            show_err('필수로 들을 강의들 중 <br>중복된 시간이 있는 강의 존재');
             return true;
         }
     }
     for(lec of data2){
         if(ck_errlec(lec) == 1){
-            show_err('선택으로 듣고싶은 강의들 중 이름이 없는 강의 존재');
+            show_err('선택으로 듣고싶은 강의들 중 <br>이름이 없는 강의 존재');
             return true;
         }
         else if(ck_errlec(lec) == 2){
-            show_err('선택으로 듣고싶은 강의들 중 시간이 겹치는 강의 존재');
+            show_err('선택으로 듣고싶은 강의들 중 <br>중복된 시간이 있는 강의 존재');
             return true;
         }
     }
 
     // 필수강의들중 겹치는것 체크
     if(ck_overlap(data1)){
-        show_err('필수강의들중 겹치는것 존재');
+        show_err('필수로 들을 강의들 중 <br>시간이 겹치는 강의쌍 존재');
         return true;
     }
 
@@ -308,7 +295,7 @@ function show_err(str){
     p = document.createElement('p');
     p.setAttribute('id', 'no_sches');
     p.setAttribute('style', 'color: red;');
-    p.innerText = str;
+    p.innerHTML = str;
     document.querySelector(q).append(p);
 }
 
@@ -508,7 +495,14 @@ function compare_sche(sche1, sche2){ //   [lec1, lec2..]  vs  [lec1, lec2..]
 }
 
 function show_sches(sches){
-    //스케줄하나식 출력
+    // 스샷요청
+    q = '#sol_result';
+    p = document.createElement('p');
+    p.setAttribute('style', 'color: rgb(128,159,255); margin: 10px');
+    p.innerHTML = '스케줄들이 나왔어요!<br>저장이 안되니 스크린샷 꼭!';
+    document.querySelector(q).append(p);
+
+    // 스케줄하나식 출력
     for(let i = 0; i < sches.length; i++){
         show_sche(i, sches[i]);
     }
@@ -519,9 +513,12 @@ function show_sche(n, sche){
     q = '#sol_result';
     
     div = document.querySelector(q);
+
     tab = document.createElement('table');
     tab.setAttribute('class', 'batch_sche');
+    tab.setAttribute('style', 'margin: 20px; margin-bottom: 50px;');
 
+    // 테이블 위에서 두줄 만들기
     for(let i = 0; i < 2; i++){
         tr = document.createElement('tr');
         td = document.createElement('td');
@@ -530,6 +527,7 @@ function show_sche(n, sche){
         tab.append(tr);
     }
 
+    // 테이블에서 나머지 만들기
     for(let i = 0; i < lec_times.length+1; i++){
         tr = document.createElement('tr');
         for(let j = 0; j < week.length+1; j++){
@@ -541,17 +539,11 @@ function show_sche(n, sche){
 
     div.append(tab); // 빈 테이블 넣기
 
-    //경계선 넣기
-    hr = document.createElement('hr');
-    div.append(hr);
-    n = n*2;
-
-    // console.log('return');
-    // return;
+    n = n+1; // 스샷요청 p 때메
 
     // 넘버링넣기
     p = document.querySelector(q + ' table:nth-child('+(n+1)+') tr:nth-child(1) td:nth-child(1)');
-    p.innerText = 'No. ' + (n/2+1);
+    p.innerText = 'No. ' + n;
     
     // 월화수목금토일넣기
     for(let i = 0; i < week.length; i++){ 
