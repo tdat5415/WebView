@@ -15,3 +15,8 @@ git push origin +master		실제로 Git에 PUSH
 
 
 
+git status
+git add .
+git commit -m "message"
+git push origin +master
+
